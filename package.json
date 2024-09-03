@@ -1,13 +1,14 @@
 {
   "name": "WeatherWatch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "compile": "tsc"
   },
   "dependencies": {
     "react": "18.2.0",
