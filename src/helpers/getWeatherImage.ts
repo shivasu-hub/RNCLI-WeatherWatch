@@ -36,6 +36,7 @@ type WeatherCode =
   | '96'
   | '99';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const items: Record<WeatherCode, WeatherImage> = {
   '0': {
     day: {
@@ -328,6 +329,7 @@ const items: Record<WeatherCode, WeatherImage> = {
  * @param weatherCode The WMO weather code
  * @returns A "day" image representation of the WMO weather code
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getWeatherImage(weatherCode: WeatherCode) {
   // Write implementation for this function to return the "day" image for a given weather code.
 }
