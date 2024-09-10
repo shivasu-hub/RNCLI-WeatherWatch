@@ -331,6 +331,13 @@ const items: Record<WeatherCode, WeatherImage> = {
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getWeatherImage(weatherCode: WeatherCode) {
+  const weather: WeatherImage | undefined = items[weatherCode];
+  if (weather) {
+    return weather.day.image;
+  } else {
+    // Default fallback image if weatherCode doesn't match
+    return 'http://openweathermap.org/img/wn/unknown.png';
+  }
   // Write implementation for this function to return the "day" image for a given weather code.
 }
 

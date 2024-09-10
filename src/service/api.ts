@@ -1,24 +1,38 @@
-// api.ts
-import axios from 'axios';
-
-const API_URL = 'https://api.open-meteo.com/v1';
 const GEOCODING_API_URL = 'https://geocoding-api.open-meteo.com/v1/';
 
-export const getWeatherForecast = async (
-  latitude: number,
-  longitude: number,
-) => {
-  const response = await axios.get(
-    `${API_URL}/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m,weather_code`,
-    {},
-  );
-  return response.data;
+import {
+  BaseQueryFn,
+  FetchArgs,
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: GEOCODING_API_URL,
+  prepareHeaders: () => {},
+});
+
+const baseQueryWithInterceptor: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  console.log('>>>>>>result', {
+    argsStringify: JSON.stringify(args),
+    resultStringfy: result.data && JSON.stringify(result.data),
+    args,
+    result,
+    error: result.error,
+  });
+  return result;
 };
 
-export const getLatitudeLongitude = async (location: string) => {
-  const response = await axios.get(
-    `${GEOCODING_API_URL}/search?name=${location}`,
-    {},
-  );
-  return response.data.results[0];
-};
+export const api = createApi({
+  baseQuery: baseQueryWithInterceptor,
+  endpoints: () => ({}),
+  keepUnusedDataFor: 0,
+  refetchOnMountOrArgChange: true,
+});
